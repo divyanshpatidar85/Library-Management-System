@@ -2,8 +2,8 @@ package User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-// import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeUnit;
+// import java.util.concurrent.TimeUnit;
 
 import Account.Accounts;
 import Book.Books;
@@ -18,6 +18,7 @@ public class User {
     private String UserName;
     private Scanner sc = new Scanner(System.in);
 
+    // constructor for intilize the users with two user datalis
     public User() {
         // Name array initialization
         if (vali == 0) {
@@ -33,6 +34,8 @@ public class User {
         }
 
     }
+    // this is for adding new user to user in this request is comes from libraray
+    // managment
 
     public void Add_New_User(String U) {
         UID us3 = new UID();
@@ -50,14 +53,14 @@ public class User {
         int id_begger = 0;
         boolean uid_verify = true;
         // Scanner sc = new Scanner(System.in);
-        System.out.println("\nEnter the id of user ");
+        System.out.println("\nENTER THE ID OF USER ");
         // if user enter wrong id for reattempts
         while (uid_verify) {
             if (id_begger >= 1) {
                 int select_option_for_Verify;
-                System.out.println("\n Chosse option :");
-                System.out.println("\n 1. Reenter your ID :");
-                System.out.println("\n 2. Exit ");
+                System.out.println("\n CHOSE FROM THE OPTION :");
+                System.out.println("\n 1. REENTER THE ID :");
+                System.out.println("\n 2. EXIT ");
                 select_option_for_Verify = sc.nextInt();
                 if (select_option_for_Verify == 2) {
                     uid_verify = false;
@@ -66,13 +69,13 @@ public class User {
 
             }
             user_id = sc.nextInt();
-            System.out.println("PLEASE WAIT WE ARE VERIFING YOU....WAIT");
+            System.out.println("PLEASE WAIT WE ARE VERIFYING YOU....WAIT");
             try {
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (Exception e) {
                 // TODO: handle exception
             }
-            System.out.println(Name.size() + " size is : ");
+            System.out.println(Name.size() + " SIZE IS : ");
             for (int i = 0; i < Name.size(); i++) {
 
                 // System.out.println("user ent : "+Username+" id: "+user_id);
@@ -85,7 +88,7 @@ public class User {
                         }
                     } catch (Exception e) {
                         // TODO: handle exception
-                        System.out.println("SOME ERROR IS OCCURED ");
+                        System.out.println("SOME ERROR IS OCCURRED ");
                     }
 
                     System.out.println("\nUSER IS VERIFIED ");
@@ -94,23 +97,24 @@ public class User {
                         uid_verify = false;
                         return true;
                     } finally {
+                        // after the verifiaction of user
                         int option;
                         boolean looping = true;
                         while (looping) {
                             try {
-                                // TimeUnit.SECONDS.sleep(2);
+                                TimeUnit.SECONDS.sleep(1);
                             } catch (Exception e) {
                                 // TODO: handle exception
                             }
-                            System.out.println("\n \n CHOSSE OPTION: ");
-                            System.out.println("1.CHECK YOUR ACCOUNT INFORMATION Check : ");
+                            System.out.println("\nCHOOSE OPTION: ");
+                            System.out.println("1.CHECK YOUR ACCOUNT INFORMATION CHECK : ");
                             System.out.println("2.GET BOOK INFORMATION : ");
                             System.out.println("3.EXIT : ");
                             option = sc.nextInt();
                             System.out.println("YOU ENTERED : " + option);
                             System.out.println("PLEASE WAIT WE ARE PROCESSING YOUR DATA...");
                             try {
-                                // TimeUnit.SECONDS.sleep(2);
+                                TimeUnit.SECONDS.sleep(1);
 
                                 if (option == 1) {
                                     CheckAccount();
@@ -122,7 +126,7 @@ public class User {
 
                                 } else {
 
-                                    System.out.println("\n!!!!  ENETER VALID INPUT !!! \n");
+                                    System.out.println("\n!!!!  ENTER VALID INPUT !!! \n");
                                 }
                             } catch (Exception e) {
                                 // TODO: handle exception
@@ -139,8 +143,9 @@ public class User {
     }
 
     // checking account user detail if it's verified
+
     private void CheckAccount() throws InterruptedException {
-        System.out.println("\n\n NOW YOU R IN CHECKACCOUNT ");
+        System.out.println("\n\n NOW YOU ARE IN CHECK-ACCOUNT ");
         // System.out.println("ENTER CHOICE : ");
         // System.out.println("CALCULATE FINE : ");
         try {
@@ -156,12 +161,12 @@ public class User {
     private void get_book_info() {
         int option_U;
 
-        System.out.println("\n\n NOW YOU R IN GET_BOOK_INFO ");
+        System.out.println("\n\n NOW YOU ARE IN GET_BOOK_INFO ");
         Books boookinfo = new Books();
         boolean looping = true;
         while (looping) {
             try {
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -171,10 +176,10 @@ public class User {
             System.out.println(" 3. RENEW INFORMATION(RENEW YOUR BOOK ) :");
             System.out.println(" 4. EXIT  : ");
             option_U = sc.nextInt();
-            System.out.println("YOU ENTERDED : " + option_U);
+            System.out.println("YOU ENTERED : " + option_U);
             System.out.println("WAIT ....");
             try {
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
 
                 if (option_U == 1) {
                     // System.out.println(" i am in oprion 1"+(UserName)+" "+(user_id)+ "
@@ -202,19 +207,19 @@ public class User {
                         }
                         //
                     } catch (Exception e) {
-                        System.out.println("MAY BR DOES NOT HAVE ANY BOOK ");
+                        System.out.println("YOU DON'T HAVE ANY BOOK ");
                     }
 
                 } else if (option_U == 4) {
                     System.out.println("\n THANK YOU HAVE A NICE DAY ......\n");
                     try {
-                        // TimeUnit.SECONDS.sleep(2);
+                        TimeUnit.SECONDS.sleep(1);
                     } catch (Exception e) {
                         // TODO: handle exception
                     }
                     looping = false;
                 } else {
-                    System.out.println("\n!!!!  ENETER VALID INPUT !!! \n");
+                    System.out.println("\n!!!!  ENTER VALID INPUT !!! \n");
                 }
             } catch (Exception e) {
                 // TODO: handle exception
@@ -223,26 +228,4 @@ public class User {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        // User u1 = new User();
-        // System.out.println("afetr \n");
-        User u2 = new User();
-
-        int VALID = 1;
-        Scanner sc1 = new Scanner(System.in);
-        boolean h = true;
-        while (h) {
-            System.out.println(u2.Verify("DivyANSH"));
-            System.out.println("\n \n \n NAYan is called ");
-            System.out.println(u2.Verify("NAyan"));
-            System.out.println("Press one for contine \n");
-            VALID = sc1.nextInt();
-            if (VALID != 1) {
-                h = false;
-            }
-
-        }
-        // u1.CheckAccount();;
-        // u1.get_book_info();
-    }
 }

@@ -31,7 +31,7 @@ public class Accounts {
 
         }
         if (decider == 1)
-            System.out.println("\n USER DOES NOT HAVE ANY BOOK SO WE CAANOT GET BOOK INFORMATION \n ");
+            System.out.println("\n USER DOES NOT HAVE ANY BOOK SO WE CANNOT GET BOOK INFORMATION \n ");
         return -1;
     }
 
@@ -54,7 +54,7 @@ public class Accounts {
 
                     if (ChronoUnit.DAYS.between(all_data_of_Accounts.get(i).issuDate, currentDate) > 15) {
 
-                        System.out.print("\n FINE FOR LATE BOOK SUBMISSSION : ");
+                        System.out.print("\n FINE FOR LATE BOOK SUBMISSION : ");
 
                         // printing fine for late submission of a book
 
@@ -84,6 +84,7 @@ public class Accounts {
                 }
             }
             // Scanner sc = new Scanner(System.in);
+            // this is for printing fine
             System.out.println("\n\nTOTAL FINE IS : " + fine_amount);
             System.out.println(" CHOOSE OPTION :  ");
             if (fine_amount != 0)
@@ -95,8 +96,10 @@ public class Accounts {
                 val = Books.calling_book(UserName, id);
                 System.out.println(val.Author);
                 System.out.println(val.Title);
-                Database obj = new Database(val.Title, val.Author, "ACCOUNT", 1);
-
+                // this is for if user loss the book
+                if (lost_book_info != 1) {
+                    Database obj = new Database(val.Title, val.Author, "ACCOUNT", 1);
+                }
                 fine_status(UserName, id);
             } else if (payment_verifiaction > 2 && payment_verifiaction < 0) {
                 System.out.println("\n!!!!!   WONG INPUT  !!!!!!!!\n ");
@@ -105,6 +108,8 @@ public class Accounts {
         }
     }
 
+    // for submitting fine and remove from data base(if he choose option of
+    // returning book
     private void fine_status(String UName, int id) {
         for (int i = 0; i < all_data_of_Accounts.size(); i++) {
             if (all_data_of_Accounts.get(i).Acc_UserName == UName && all_data_of_Accounts.get(i).Acc_id == id) {
@@ -120,7 +125,8 @@ public class Accounts {
         }
     }
 
-    // showing account details
+    // this is for getting related user infromation on the basis of "username " and
+    // "userid"
     public void AccountDetails(String USName, int US_ID) throws Exception {
         int choice = 0, flag = 0;
         try {
@@ -128,16 +134,19 @@ public class Accounts {
             for (int i = 0; i < all_data_of_Accounts.size(); i++) {
                 if (all_data_of_Accounts.get(i).Acc_UserName == USName && all_data_of_Accounts.get(i).Acc_id == US_ID) {
                     flag = 1;
+                    // printing user account details
                     System.out.println("BORROWED BOOK : " + all_data_of_Accounts.get(i).Acc_borrowed_book);
                     System.out.println("LOST BOOK : " + all_data_of_Accounts.get(i).Acc_lost_book);
                     System.out.println("RETURNED BOOK : " + all_data_of_Accounts.get(i).Acc_returned_book);
                     try {
-                        // TimeUnit.SECONDS.sleep(2);
+                        TimeUnit.SECONDS.sleep(1);
+                        // this is for user
                         System.out.println(" \n ENTER YOUR CHOICE : ");
                         System.out.println("1. CALCULATE FINE ");
                         System.out.println("2. EXIT :");
                         choice = sc.nextInt();
                         if (choice == 1) {
+                            // this will call calculate fine if choice ==1
                             Calculate_fine(USName, US_ID);
 
                         }
@@ -147,14 +156,15 @@ public class Accounts {
 
                 }
             }
+            // if user account does not have deatails than this will run
             if (flag == 0) {
-                System.out.println("YOU DOES NOT HAVE BOOK ");
-                // TimeUnit.SECONDS.sleep(2);
+                System.out.println("YOU DON'T HAVE BOOK ");
+                TimeUnit.SECONDS.sleep(1);
             }
 
         } catch (Exception e) {
-            System.out.println("YOU DOES NOT HAVE BOOK ");
-            // TimeUnit.SECONDS.sleep(2);
+            System.out.println("YOU DON'T HAVE BOOK ");
+            TimeUnit.SECONDS.sleep(1);
         }
 
     }
@@ -165,15 +175,16 @@ public class Accounts {
         boolean verification = true;
         // System.out.println("my size is now "+all_data_of_Accounts.size());
         System.out.println("WAIT .......");
-        // TimeUnit.SECONDS.sleep(2);
-
+        TimeUnit.SECONDS.sleep(1);
+        // this loop chech user have book or not
         for (int i = 0; i < all_data_of_Accounts.size(); i++) {
             if (all_data_of_Accounts.get(i).Acc_UserName == username && all_data_of_Accounts.get(i).Acc_id == uuid) {
                 verification = false;
             }
         }
+        // if verifiaction is done this call
         if (verification) {
-            System.out.println(" YOU DOES NOT HAVE ANY BOOK  ");
+            System.out.println(" YOU DON'T HAVE ANY BOOK  ");
             int choice;
             System.out.println(" CHOOSE OPTION  ");
             System.out.println(" 1. FOR ISSUE BOOK   ");
@@ -182,13 +193,15 @@ public class Accounts {
             System.out.println("YOU ENTERED : " + choice);
             System.out.println("WAIT..... : ");
             try {
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (Exception e) {
-                // TODO: handle exception
+
             }
 
             if (choice == 1) {
                 // Database obj = new Database()
+                // this is help to store the user information or we can say account datlis like
+                // broowed book .lost book,for maintaing user accpunt
                 Books.req = 1;
                 CustomDataAccount cda = new CustomDataAccount();
 
@@ -208,13 +221,16 @@ public class Accounts {
 
                 all_data_of_Accounts.add(cda);
                 // System.out.println("\n WAIT......... ");
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 System.out.println(" NOW YOU ISSUED ONE BOOK  ");
             }
-        } else {
+        }
+        // this will execute if user already have one book and he try to get another
+        // book which is present in data base
+        else {
             // System.out.println("!!! INAVAID OPTION !!!!");
             try {
-                // TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -223,15 +239,7 @@ public class Accounts {
         return false;
 
     }
-
-    // public static void main(String[] args) {
-    // Accounts obj = new Accounts();
-    // // obj.AccUserBookInformation_Add();
-    // // obj.Calculate_fine("divyansh", 111);
-
-    // // System.out.println(" main " +obj.all_data_of_Accounts.size());
-
-    // }
+    // this methods helps the user to show due date if it's have a book
 
     public void due(int i) {
         System.out.println("i is == > " + i);
@@ -239,6 +247,8 @@ public class Accounts {
         System.out.println("DUE DATE IS :" + all_data_of_Accounts.get(i).issuDate.plusDays(15));
 
     }
+    // this methods helps the user to show renew book if due date is greater than
+    // current date else it's show firstly pay fine and return book
 
     public void Renew_data(int renew_var) throws InterruptedException {
         // System.out.println("Renew var "+renew_var);
@@ -256,7 +266,7 @@ public class Accounts {
                 System.out.println(" FIRST PAY YOUR FINE ");
             }
         } catch (Exception e) {
-            // TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(1);
             System.out.println("YOU DOES NOT HAVE ANY BOOK ");
         }
     }

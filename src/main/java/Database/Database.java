@@ -7,20 +7,23 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Database {
-    static public int validator=0,print_decider=0;
+    static public int validator = 0, print_decider = 0;
     private String title;
     private String author;
     private String ISBN;
     private String Publication;
     private int numOfBooks;
-    public static ArrayList<DATABASE_FIELDS> databaseArrayList= new ArrayList<>();
+    public static ArrayList<DATABASE_FIELDS> databaseArrayList = new ArrayList<>();
     public boolean BookFoundOfNot;
-// Here i am statyinh
-    public Database(String title, String author, String nameOfYourClass, int Request){
-        if(validator==0) {
-            databaseArrayList.add(new DATABASE_FIELDS("To Kill a Mockingbird", "Harper Lee", "9780061120084", "Harper Perennial Modern Classics", 4));
+
+    // Here i am statyinh
+    public Database(String title, String author, String nameOfYourClass, int Request) {
+        if (validator == 0) {
+            databaseArrayList.add(new DATABASE_FIELDS("To Kill a Mockingbird", "Harper Lee", "9780061120084",
+                    "Harper Perennial Modern Classics", 4));
             databaseArrayList.add(new DATABASE_FIELDS("1984", "George Orwell", "9780451524935", "Signet Classics", 2));
-            databaseArrayList.add(new DATABASE_FIELDS("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", "Scribner", 3));
+            databaseArrayList.add(
+                    new DATABASE_FIELDS("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", "Scribner", 3));
             databaseArrayList.add(new DATABASE_FIELDS("Harry Potter", "123", "12345", "JKR", 1));
             System.out.println(" i am inside ");
             validator++;
@@ -31,43 +34,40 @@ public class Database {
 
     }
 
-    public Database(){
-        databaseArrayList.add(new DATABASE_FIELDS("To Kill a Mockingbird", "Harper Lee", "9780061120084", "Harper Perennial Modern Classics",4));
-        databaseArrayList.add(new DATABASE_FIELDS("1984", "George Orwell", "9780451524935", "Signet Classics",2));
-        databaseArrayList.add(new DATABASE_FIELDS( "The Great Gatsby","F. Scott Fitzgerald", "9780743273565", "Scribner",3));
-        databaseArrayList.add(new DATABASE_FIELDS( "Harry Potter","123", "12345", "JKR",1));
+    public Database() {
+        databaseArrayList.add(new DATABASE_FIELDS("To Kill a Mockingbird", "Harper Lee", "9780061120084",
+                "Harper Perennial Modern Classics", 4));
+        databaseArrayList.add(new DATABASE_FIELDS("1984", "George Orwell", "9780451524935", "Signet Classics", 2));
+        databaseArrayList
+                .add(new DATABASE_FIELDS("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", "Scribner", 3));
+        databaseArrayList.add(new DATABASE_FIELDS("Harry Potter", "123", "12345", "JKR", 1));
         LibrarianAccess();
     }
 
-    private void BookOrLibrarian(String bookOrLibrarianorAccount, int request){
-        if (bookOrLibrarianorAccount == "BOOK" && request == 1){
-           // This is for requesting
+    private void BookOrLibrarian(String bookOrLibrarianorAccount, int request) {
+        if (bookOrLibrarianorAccount == "BOOK" && request == 1) {
+            // This is for requesting
             BookAccess();
-        }
-        else if (bookOrLibrarianorAccount == "BOOK" && request == 0) {
+        } else if (bookOrLibrarianorAccount == "BOOK" && request == 0) {
             // This is for searching book
             try {
                 animation();
-//                TimeUnit.SECONDS.sleep(3);
+                // TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            BookFoundOfNot =
-                    Search(title, author, null , null , "SEARCH");
-        }
-        else if (bookOrLibrarianorAccount == "LIBRARIAN") {
+            BookFoundOfNot = Search(title, author, null, null, "SEARCH");
+        } else if (bookOrLibrarianorAccount == "LIBRARIAN") {
             LibrarianAccess();
-        }
-        else if (bookOrLibrarianorAccount == "ACCOUNT") {
+        } else if (bookOrLibrarianorAccount == "ACCOUNT") {
             System.out.println("YOU ARE IN ACCOUNT");
-//            try {
-//                TimeUnit.SECONDS.sleep(3);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            // try {
+            // TimeUnit.SECONDS.sleep(3);
+            // } catch (InterruptedException e) {
+            // throw new RuntimeException(e);
+            // }
             AccountAccess();
-        }
-        else {
+        } else {
             System.out.println("ENTER CORRECT CLASS YOU CHOMU !!");
         }
     }
@@ -80,9 +80,10 @@ public class Database {
             throw new RuntimeException(e);
         }
 
-        for (DATABASE_FIELDS databaseFields : databaseArrayList){
+        for (DATABASE_FIELDS databaseFields : databaseArrayList) {
 
-            if (databaseFields.getTitle().equalsIgnoreCase(title) && databaseFields.getAuthor().equalsIgnoreCase(author)){
+            if (databaseFields.getTitle().equalsIgnoreCase(title)
+                    && databaseFields.getAuthor().equalsIgnoreCase(author)) {
 
                 System.out.println();
                 System.out.print(databaseFields.getTitle() + " ");
@@ -105,6 +106,7 @@ public class Database {
             }
         }
     }
+
     private void AccountAccess() {
         System.out.print("RETURNING YOUR BOOK");
         try {
@@ -114,12 +116,12 @@ public class Database {
         }
 
         boolean BookPresentDB = true;
-        if (BookPresentDB){
+        if (BookPresentDB) {
             IncreaseNumOfBooks(title, author);
         }
     }
 
-    private void BookAccess(){
+    private void BookAccess() {
         System.out.print("SEARCHING YOUR BOOK");
         try {
             animation();
@@ -129,28 +131,28 @@ public class Database {
         BookFoundOfNot = Search(title, author);
     }
 
-    private void LibrarianAccess(){
-        int input ;
+    private void LibrarianAccess() {
+        int input;
         boolean validInput = false;
         Scanner scn = new Scanner(System.in);
 
-        while( (!validInput)){
+        while ((!validInput)) {
 
             System.out.println("ENTER '1' TO ADD BOOK, '2' TO DELETE BOOK, '3' TO UPDATE," +
                     " '4' TO DISPLAY, '5' TO SEARCH | '6' TO EXIT");
             input = scn.nextInt();
 
-            if (input == 1){
+            if (input == 1) {
                 LibrarianInput();
-                if ( Search(title, author, ISBN, Publication, "SEARCH")) {
+                if (Search(title, author, ISBN, Publication, "SEARCH")) {
                     IncreaseNumOfBooks(title, author);
-                }else {
-                add(title, author, ISBN, Publication);
+                } else {
+                    add(title, author, ISBN, Publication);
                 }
                 try {
                     System.out.print("WAIT");
                     animation();
-//                    TimeUnit.SECONDS.sleep(3);
+                    // TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -160,54 +162,53 @@ public class Database {
                 try {
                     System.out.print("\nWAIT");
                     animation();
-//                    TimeUnit.SECONDS.sleep(3);
+                    // TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }else if (input == 3){
+            } else if (input == 3) {
                 LibrarianInput();
                 if (Search(title, author, ISBN, Publication, "UPDATE")) {
                     update(title, author, ISBN, Publication);
-                }else {
+                } else {
                     System.out.println("NO SUCH BOOK FOUND");
                 }
 
                 try {
                     System.out.print("\nWAIT");
                     animation();
-//                    TimeUnit.SECONDS.sleep(3);
+                    // TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }else if (input == 4) {
+            } else if (input == 4) {
                 display();
                 try {
                     System.out.print("\nWAIT");
                     animation();
-//                    TimeUnit.SECONDS.sleep(3);
+                    // TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }else if (input == 5){
+            } else if (input == 5) {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("ENTER SEARCH TITLE");
                 String SearchTitle = scanner.nextLine();
                 System.out.println("ENTER AUTHOR TO SEARCH");
                 String SearchAuthor = scanner.nextLine();
-                Search(SearchTitle, SearchAuthor, null,null,"SEARCH");
-
+                Search(SearchTitle, SearchAuthor, null, null, "SEARCH");
 
                 try {
                     System.out.print("\nWAIT");
                     animation();
-//                    TimeUnit.SECONDS.sleep(3);
+                    // TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
-            }else if (input == 6) {
+            } else if (input == 6) {
                 validInput = true;
-            }else {
+            } else {
                 System.out.println("WRONG INPUT");
             }
 
@@ -215,45 +216,44 @@ public class Database {
         scn.close();
     }
 
-
-    private void add(String title, String author, String ISBN, String Publication){
+    private void add(String title, String author, String ISBN, String Publication) {
 
         databaseArrayList.add(new DATABASE_FIELDS(title, ISBN, Publication, author, 1));
         System.out.println("BOOK ADDED !!!");
     }
 
     private void delete(String title, String author, String ISBN, String Publication) {
-       // int indexToRemove = findIndexByFields(databaseArrayList, title, author);
-       for(int i=0;i<databaseArrayList.size();i++){
-           if(databaseArrayList.get(i).getTitle().equalsIgnoreCase(title) &&
-                   databaseArrayList.get(i).getAuthor().equalsIgnoreCase(author)&&
-           databaseArrayList.get(i).getISBN().equalsIgnoreCase(ISBN)&&
-           databaseArrayList.get(i).getPublication().equalsIgnoreCase(Publication)&&
-                   databaseArrayList.get(i).getNumBooks()>=1
-           ){
-               databaseArrayList.get(i).setNumBooks(databaseArrayList.get(i).getNumBooks()-1);
-               System.out.println("BOOK IS DELETED .....");
-           }
-       }
-
+        // int indexToRemove = findIndexByFields(databaseArrayList, title, author);
+        for (int i = 0; i < databaseArrayList.size(); i++) {
+            if (databaseArrayList.get(i).getTitle().equalsIgnoreCase(title) &&
+                    databaseArrayList.get(i).getAuthor().equalsIgnoreCase(author) &&
+                    databaseArrayList.get(i).getISBN().equalsIgnoreCase(ISBN) &&
+                    databaseArrayList.get(i).getPublication().equalsIgnoreCase(Publication) &&
+                    databaseArrayList.get(i).getNumBooks() >= 1) {
+                databaseArrayList.get(i).setNumBooks(databaseArrayList.get(i).getNumBooks() - 1);
+                System.out.println("BOOK IS DELETED .....");
+            }
+        }
 
     }
 
     private void delete(String title, String author) {
 
-       for(int i=0;i<databaseArrayList.size();i++){
-           if(databaseArrayList.get(i).getTitle().equalsIgnoreCase(title) && databaseArrayList.get(i).getAuthor().equalsIgnoreCase(author) &&databaseArrayList.get(i).getNumBooks()>=1){
-//               System.out.println(databaseArrayList.get(i).getNumBooks());
-               System.out.println("deleting "+databaseArrayList.get(i).getTitle()+"  "+databaseArrayList.get(i).getAuthor());
-                  int a =databaseArrayList.get(i).getNumBooks() -1;
-                  databaseArrayList.get(i).setNumBooks(a);
-                  break;
-           }
-       }
+        for (int i = 0; i < databaseArrayList.size(); i++) {
+            if (databaseArrayList.get(i).getTitle().equalsIgnoreCase(title)
+                    && databaseArrayList.get(i).getAuthor().equalsIgnoreCase(author)
+                    && databaseArrayList.get(i).getNumBooks() >= 1) {
+                // System.out.println(databaseArrayList.get(i).getNumBooks());
+                System.out.println("deleting " + databaseArrayList.get(i).getTitle() + "  "
+                        + databaseArrayList.get(i).getAuthor());
+                int a = databaseArrayList.get(i).getNumBooks() - 1;
+                databaseArrayList.get(i).setNumBooks(a);
+                break;
+            }
+        }
     }
 
-
-    private void update(String title, String author, String ISBN, String Publication){
+    private void update(String title, String author, String ISBN, String Publication) {
         int index = findIndexByFields(databaseArrayList, title, author);
 
         System.out.println("ENTER THE BOOK DETAILS TO BE CHANGED\n");
@@ -278,8 +278,8 @@ public class Database {
         System.out.println("CHANGES UPDATED !!!");
     }
 
-    private void display(){
-        for (DATABASE_FIELDS val : databaseArrayList){
+    private void display() {
+        for (DATABASE_FIELDS val : databaseArrayList) {
             System.out.print(val.getTitle() + " ");
             System.out.print(val.getAuthor() + " ");
             System.out.print(val.getPublication() + " ");
@@ -288,8 +288,9 @@ public class Database {
             System.out.println();
         }
     }
-    private boolean Search(String title, String author, String ISBN, String Publication, String REASON){
-        //TODO keep it on check
+
+    private boolean Search(String title, String author, String ISBN, String Publication, String REASON) {
+        // TODO keep it on check
         if (REASON == "UPDATE") {
             for (DATABASE_FIELDS val : databaseArrayList) {
                 if (val.getTitle().equalsIgnoreCase(title) && val.getAuthor().equalsIgnoreCase(author)) {
@@ -300,8 +301,9 @@ public class Database {
         } else if (REASON == "SEARCH") {
             System.out.println();
             for (DATABASE_FIELDS val : databaseArrayList) {
-                if (val.getTitle().equalsIgnoreCase(title) && val.getAuthor().equalsIgnoreCase(author)&&val.getNumBooks()>=1) {
-                    print_decider=1;
+                if (val.getTitle().equalsIgnoreCase(title) && val.getAuthor().equalsIgnoreCase(author)
+                        && val.getNumBooks() >= 1) {
+                    print_decider = 1;
                     System.out.println("BOOK IS PRESENT");
                     return true;
                 }
@@ -311,14 +313,15 @@ public class Database {
         return false;
     }
 
-    private boolean Search(String title, String author){
-        //TODO keep it on check
-//        int rool=1;
-        for (DATABASE_FIELDS val : databaseArrayList){
-            if (val.getTitle().equalsIgnoreCase(title) && val.getAuthor().equalsIgnoreCase(author)&&  val.getNumBooks()>=1){
-//                print_decider=1;
-                System.out.println("if "+print_decider);
-//                System.out.println("BOOK IS PRESENT AND HAS BEEN REQUESTED");
+    private boolean Search(String title, String author) {
+        // TODO keep it on check
+        // int rool=1;
+        for (DATABASE_FIELDS val : databaseArrayList) {
+            if (val.getTitle().equalsIgnoreCase(title) && val.getAuthor().equalsIgnoreCase(author)
+                    && val.getNumBooks() >= 1) {
+                // print_decider=1;
+                System.out.println("if " + print_decider);
+                // System.out.println("BOOK IS PRESENT AND HAS BEEN REQUESTED");
                 System.out.println("deleting");
                 delete(title, author);
 
@@ -326,44 +329,44 @@ public class Database {
 
             }
         }
-//        System.out.println("i aslo "+print_decider);
-        if(print_decider!=1) {
+        // System.out.println("i aslo "+print_decider);
+        if (print_decider != 1) {
             System.out.println("BOOK IS NOT FOUND !!!");
         }
-        print_decider=0;
-//        System.out.println("near to false "+print_decider);
+        print_decider = 0;
+        // System.out.println("near to false "+print_decider);
         return false;
     }
 
     private void animation() throws InterruptedException {
-        for (int i = 0; i < 3; i++){
-//            TimeUnit.SECONDS.sleep(1);
+        for (int i = 0; i < 3; i++) {
+            // TimeUnit.SECONDS.sleep(1);
             System.out.print(".");
         }
         System.out.println();
     }
 
-    private void LibrarianInput(){
+    private void LibrarianInput() {
         boolean valid = false;
         do {
             try {
                 Scanner scn = new Scanner(System.in);
                 System.out.println("ENTER TITLE");
-                 title = scn.nextLine();
+                title = scn.nextLine();
 
                 System.out.println("ENTER AUTHOR");
-                 author = scn.nextLine();
+                author = scn.nextLine();
 
                 System.out.println("ENTER ISBN");
-                 ISBN = scn.nextLine();
+                ISBN = scn.nextLine();
 
                 System.out.println("ENTER PUBLICATION");
-                 Publication = scn.nextLine();
+                Publication = scn.nextLine();
                 valid = true;
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("WRONG INPUT");
             }
-        }while (!valid);
+        } while (!valid);
     }
 
     private int findIndexByFields(ArrayList<DATABASE_FIELDS> books, String title, String author) {
@@ -377,11 +380,11 @@ public class Database {
     }
 
     public static void main(String[] args) {
-        //"Harry Potter","123", "12345", "JKR",5
-        Database obj = new Database("Harry Potter","JKR", "BOOK", 1);
-//        System.out.println(obj.BookFoundOfNot);
-//        Database obj = new Database("Harry Potter", "JKR", );
-//        obj.delete("harry potter","jkr");
+        // "Harry Potter","123", "12345", "JKR",5
+        Database obj = new Database("Harry Potter", "JKR", "BOOK", 1);
+        // System.out.println(obj.BookFoundOfNot);
+        // Database obj = new Database("Harry Potter", "JKR", );
+        // obj.delete("harry potter","jkr");
 
     }
 }
